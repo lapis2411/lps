@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
+
+	config "github.com/lapis2411/tools/config"
 )
 
 var DeeplCmd = &cobra.Command{
@@ -37,7 +38,8 @@ type ExpectedResponseData struct {
 
 func translate(text string) {
 	fmt.Println("text:", text)
-	key := os.Getenv("DEEPL_KEY")
+	cfg := config.GetConfiguration()
+	key := cfg.GetAPIKey(config.DEEPL)
 
 	request := RequestData{
 		Text:       []string{text},
