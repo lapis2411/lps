@@ -22,5 +22,5 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(deepl.DeeplCmd)
+	rootCmd.AddCommand(deepl.DepplCmd())
 }
