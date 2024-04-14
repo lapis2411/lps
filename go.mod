@@ -1,4 +1,4 @@
-module github.com/lapis2411/tools
+module github.com/lapis2411/lps
 
 go 1.22.1
 
