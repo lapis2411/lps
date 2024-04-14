@@ -1,4 +1,4 @@
-package deepl
+package cmd
 
 import (
 	"bytes"
@@ -9,13 +9,13 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/lapis2411/tools/config"
+	"github.com/lapis2411/lps/config"
 )
 
 var toEnglish bool
 var toJapanese bool
 
-func DepplCmd() *cobra.Command {
+func GetDepplCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "deepl",
 		Short: "translate the input sentence",
