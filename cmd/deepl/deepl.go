@@ -9,17 +9,26 @@ import (
 
 	"github.com/spf13/cobra"
 
-	config "github.com/lapis2411/tools/config"
+	"github.com/lapis2411/tools/config"
 )
 
-var DeeplCmd = &cobra.Command{
-	Use:   "deepl",
-	Short: "translate the input sentence",
-	Long:  `translate the input sentence`,
-	Args:  cobra.MinimumNArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		translate(strings.Join(args, " "))
-	},
+var toEnglish bool
+var toJapanese bool
+
+func DepplCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "deepl",
+		Short: "translate the input sentence",
+		Long:  `translate the input sentence`,
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			translate(strings.Join(args, " "))
+		},
+	}
+	cmd.Flags().BoolVar(&toEnglish, "en", true, "translate to English")
+	cmd.Flags().BoolVar(&toJapanese, "ja", false, "translate to Japanese")
+	cmd.MarkFlagsMutuallyExclusive("en", "ja")
+	return cmd
 }
 
 type RequestData struct {
@@ -41,9 +50,13 @@ func translate(text string) {
 	cfg := config.GetConfiguration()
 	key := cfg.GetAPIKey(config.DEEPL)
 
+	lang := "EN"
+	if toJapanese {
+		lang = "JA"
+	}
 	request := RequestData{
 		Text:       []string{text},
-		TargetLang: "JA",
+		TargetLang: lang,
 	}
 
 	jsonData, err := json.Marshal(request)
