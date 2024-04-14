@@ -25,6 +25,6 @@ func init() {
 	rootCmd.AddCommand(GetDepplCmd())
 }
 
-func GetCommand(sub ...*cobra.Command) *cobra.Command {
+func GetCommand() *cobra.Command {
 	return rootCmd
 }
