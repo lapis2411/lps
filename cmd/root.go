@@ -1,26 +1,30 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
-
-	"github.com/lapis2411/tools/cmd/deepl"
 )
 
-var rootCmd = &cobra.Command{
-	Use:   "lps",
-	Short: "Usefull tool set",
-	Long:  `Usefull tool set`,
-}
-
-func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
-}
+var rootCmd *cobra.Command
 
 func init() {
-	rootCmd.AddCommand(deepl.DepplCmd())
+	rootCmd = &cobra.Command{
+		Use:   "lps",
+		Short: "Usefull tool set",
+		Long:  `Usefull tool set`,
+		Run: func(cmd *cobra.Command, args []string) {
+			err := cmd.Execute()
+			if err != nil {
+				fmt.Println(err.Error())
+				os.Exit(1)
+			}
+		},
+	}
+	rootCmd.AddCommand(GetDepplCmd())
+}
+
+func GetCommand() *cobra.Command {
+	return rootCmd
 }
