@@ -23,6 +23,7 @@ func init() {
 		},
 	}
 	rootCmd.AddCommand(GetDepplCmd())
+	rootCmd.AddCommand(GetDictionaryCmd())
 }
 
 func GetCommand() *cobra.Command {

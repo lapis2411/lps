@@ -19,11 +19,13 @@ type ConfigData struct {
 	ApiKey APIKeys `yaml:"API_KEY"`
 }
 type APIKeys struct {
-	DeepL string `yaml:"DEEPL"`
+	DeepL     string `yaml:"DEEPL"`
+	APINinjas string `yaml:"API_NINJAS"`
 }
 
 const (
 	DEEPL ExternalAPI = iota
+	API_NINJAS
 )
 
 func GetConfiguration() Configuration {
@@ -38,6 +40,8 @@ func GetConfiguration() Configuration {
 func (c ConfigData) GetAPIKey(target ExternalAPI) string {
 	if target == DEEPL {
 		return c.ApiKey.DeepL
+	} else if target == API_NINJAS {
+		return c.ApiKey.APINinjas
 	}
 	return ""
 }
